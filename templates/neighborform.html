@@ -11,6 +11,8 @@
                     <h2 class="title">NeighborForm</h2>
                 <form action="" method="post" autocomplete="off">
     {% csrf_token %}
+     <label Style='color:black;'>Neighbor NO:</label>
+    <input class="form-control form-control-lg" type="text">
     {{form|crispy}}
   
      <div class="p-t-20">

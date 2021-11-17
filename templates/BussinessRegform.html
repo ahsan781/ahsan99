@@ -10,7 +10,10 @@
                 <div class="card-body">
                     <h2 class="title">Bussiness Registration Form</h2>
                 <form action="" method="post" autocomplete="off"  enctype="multipart/form-data">
+
                     {% csrf_token %}
+                     <label Style='color:black;'>Bussiness Registration:</label>
+                    <input class="form-control form-control-lg" type="text">
                      {{form|crispy}}
   
      <div class="p-t-20">

@@ -10,7 +10,11 @@
                 <div class="card-body">
                     <h2 class="title">Dhaxalayaalform </h2>
                 <form action="" method="post" autocomplete="off"  enctype="multipart/form-data">
+                 <label Style='color:black;'>District NO:</label>
+                     <input class="form-control form-control-lg" type="text">
                     {% csrf_token %}
+                     <label Style='color:black;'>Registration ID:</label>
+                    <input class="form-control form-control-lg" type="text">
                      {{form|crispy}}
   
      <div class="p-t-20">

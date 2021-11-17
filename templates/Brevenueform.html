@@ -10,6 +10,8 @@
                 <div class="card-body">
                     <h2 class="title">Bussiness Revenue</h2>
                 <form action="" method="post" autocomplete="off"  enctype="multipart/form-data">
+                 <label Style='color:black;'>Bussiness ID:</label>
+                        <input class="form-control form-control-lg" type="text">
                     {% csrf_token %}
                      {{form|crispy}}
   
