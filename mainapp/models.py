@@ -13,7 +13,7 @@ class SubDistrict(models.Model):
     SubDistrictname = models.CharField(max_length=100)
     District = models.ForeignKey(District,on_delete=models.CASCADE)
     def __str__(self):
-        return self. SubDistrictname
+        return self.SubDistrictname
 class Neighbor(models.Model):
   id = models.AutoField(primary_key=True)
   subDistrict = models.ForeignKey(SubDistrict, on_delete=models.CASCADE)
@@ -35,32 +35,7 @@ class PlotNo(models.Model):
     PlotNo =  models.PositiveIntegerField(blank=True)
     def __str__(self):
              return "%s" % (self.PlotNo)
-class identification(models.Model):
-    id = models.AutoField(primary_key=True)
-    IDType =  models.CharField(max_length=200)
-    OtherID =  models.PositiveIntegerField(blank=True)
-    IDNumber =  models.PositiveIntegerField(blank=True)
-    IDissueBy =  models.CharField(max_length=200)
-    IDdate =   models.DateField()
-    ScanedID = models.FileField(upload_to ='identification/',null=True)
-    def __str__(self):
-        return self.IDType
-class Purchaseinfo(models.Model):
-    RegistrationNO = models.AutoField(primary_key=True)
-    District = models.ForeignKey(District,on_delete=models.CASCADE)
-    SubDistrict = models.ForeignKey(SubDistrict,on_delete=models.CASCADE)
-    Neighbor = models.ForeignKey(Neighbor,on_delete=models.CASCADE)
-    PlotNo = models.ForeignKey(PlotNo,on_delete=models.CASCADE)
-    identification = models.ForeignKey(identification,on_delete=models.CASCADE)
-    OwnerFirstName =  models.CharField(max_length=500)
-    OwnerSecondName  =  models.CharField(max_length=500)
-    OwnerLastName =  models.CharField(max_length=500)
-    OwnerSurName  =  models.CharField(max_length=500)
-    Mobile =  models.CharField(max_length=500)
-    Email =  models.CharField(max_length=500)
-    OtherProperty =  models.CharField(max_length=500)
-    def __str__(self):
-             return "%s" % (self.RegistrationNO)
+
 class Landtype(models.Model):
     id = models.AutoField(primary_key=True)
     Landtype =  models.CharField(max_length=500)
@@ -78,7 +53,6 @@ class Notary(models.Model):
              return "%s" % (self.Notrayname)
 class Parcel(models.Model):
     Registrationid = models.AutoField(primary_key=True)
-    Purchaseinfo = models.ForeignKey(Purchaseinfo,on_delete=models.CASCADE)
     Landtype = models.ForeignKey(Landtype,on_delete=models.CASCADE)
     Notary = models.ForeignKey(Notary,on_delete=models.CASCADE)
     Existingbuilding =  models.CharField(max_length=500)
@@ -90,6 +64,33 @@ class Parcel(models.Model):
     landlenght =  models.CharField(max_length=500)
     def __str__(self):
              return "%s" % (self.Registrationid)
+class identification(models.Model):
+    id = models.AutoField(primary_key=True)
+    RegistrationNO = models.ForeignKey(Parcel,on_delete=models.CASCADE)
+    IDType =  models.CharField(max_length=200)
+    OtherID =  models.PositiveIntegerField(blank=True)
+    IDNumber =  models.PositiveIntegerField(blank=True)
+    IDissueBy =  models.CharField(max_length=200)
+    IDdate =   models.DateField()
+    ScanedID = models.FileField(upload_to ='identification/',null=True)
+    def __str__(self):
+        return self.IDType
+class Purchaseinfo(models.Model):
+    RegistrationNO = models.AutoField(primary_key=True)
+    RegistrationID = models.ForeignKey(Parcel,on_delete=models.CASCADE,default='1')
+    District = models.ForeignKey(District,on_delete=models.CASCADE)
+    SubDistrict = models.ForeignKey(SubDistrict,on_delete=models.CASCADE)
+    Neighbor = models.ForeignKey(Neighbor,on_delete=models.CASCADE)
+    PlotNo = models.ForeignKey(PlotNo,on_delete=models.CASCADE)
+    OwnerFirstName =  models.CharField(max_length=500)
+    OwnerSecondName  =  models.CharField(max_length=500)
+    OwnerLastName =  models.CharField(max_length=500)
+    OwnerSurName  =  models.CharField(max_length=500)
+    Mobile =  models.CharField(max_length=500)
+    Email =  models.CharField(max_length=500)
+    OtherProperty =  models.CharField(max_length=500)
+    def __str__(self):
+             return "%s" % (self.RegistrationNO)
 class PropertyMap(models.Model):
     id = models.AutoField(primary_key=True)
     Purchaseinfo = models.ForeignKey(Purchaseinfo,on_delete=models.CASCADE,default='1')
@@ -107,7 +108,7 @@ class Plotmap(models.Model):
 
 class Sellerinfo(models.Model):
     Registrationid = models.AutoField(primary_key=True)
-    Parcel =  models.ForeignKey(Parcel,on_delete=models.CASCADE)
+    RegistrationNO =  models.ForeignKey(Parcel,on_delete=models.CASCADE)
     FirstName = models.CharField(max_length=500)
     SecondName = models.CharField(max_length=500)
     LastName =  models.CharField(max_length=500)
@@ -125,7 +126,7 @@ class Sellerinfo(models.Model):
              return "%s" % (self.FirstName)
 class Dhaxalayaal(models.Model):
     Registrationid = models.AutoField(primary_key=True)
-    Parcel =  models.ForeignKey(Parcel,on_delete=models.CASCADE)
+    RegistrationNO =  models.ForeignKey(Parcel,on_delete=models.CASCADE)
     FirstName = models.CharField(max_length=500)
     SecondName = models.CharField(max_length=500)
     LastName =  models.CharField(max_length=500)
@@ -149,7 +150,7 @@ class DhaxalSubDoc(models.Model):
              return "%s" % (self.RegistrationID)
 class SupportingDOC(models.Model):
     RegistrationID = models.AutoField(primary_key=True)
-    Parcel =  models.ForeignKey(Parcel,on_delete=models.CASCADE)
+    RegistrationNO =  models.ForeignKey(Parcel,on_delete=models.CASCADE)
     IDcard =  models.FileField(upload_to ='IDCARD/',null=True)
     GentalReciptVoucher =  models.FileField(upload_to ='GR/',null=True)
     MasterPlan =  models.FileField(upload_to ='Masterplan/',null=True)

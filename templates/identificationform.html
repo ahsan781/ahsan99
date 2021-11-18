@@ -11,9 +11,7 @@
                     <h2 class="title">LandRegistration(Identification)</h2>
                 <form action="" method="post" autocomplete="off"  enctype="multipart/form-data"> 
     {% csrf_token %}
-     <label Style='color:black;'>Registration NO:</label>
-    <input class="form-control form-control-lg" type="text">
-    {{form|crispy}}
+    {{form |crispy}}
   
      <div class="p-t-20">
         <button class="btn btn--radius btn--green" type="submit">Submit</button>

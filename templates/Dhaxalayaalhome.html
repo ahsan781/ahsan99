@@ -10,8 +10,7 @@
                 <div class="card-body" >
                   
   
- <h2>Dhaxalayaal <a class="btn btn-warning" href="{% url 'dform'  %}" style='margin-left:100px'>ADD</a></h2>
-  </br>               
+ <h2>Dhaxalayaal </h2>
   <table class="table ">
   <thead>
     <tr>
@@ -23,7 +22,7 @@
       <th scope="col"> Gender </th>
         <th scope="col"> DOB </th>
       <th scope="col">      Telephone </th>
-        <th scope="col">    Action</th>
+    
        
         
     </tr>
@@ -41,12 +40,7 @@
       <td>   {{ d.Telephone }}</td>
 
           
-      <td>
-    
-        <a class="btn btn-success" href="{% url 'dform' d.Registrationid %}">Edit</a>
-        <a class="btn btn-danger" href="{% url 'ddelete' d.Registrationid %}">Delete</a>
-                                  
-      </td>
+      
     </tr>
    
   </tbody>

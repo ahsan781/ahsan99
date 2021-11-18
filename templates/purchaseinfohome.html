@@ -9,7 +9,7 @@
           
                   
   
- <h2>Purchase INFO <a class="btn btn-warning" href="{% url 'PIform'  %}" style='margin-left:100px'>ADD</a></h2>
+ <h2>Purchase INFO </h2>
   </br>               
  <table class="table " style='width:100%'>
   <thead>
@@ -19,7 +19,6 @@
       <th scope="col">SubDistrict</th>
       <th scope="col">Neighbor</th>
       <th scope="col">PlotNo</th>
-      <th scope="col">Identification</th>
       <th scope="col"> OwnerFirstName</th>
       <th scope="col"> OwnerSecondName</th>
       <th scope="col"> OwnerLastName</th>
@@ -38,7 +37,6 @@
           <td>   {{ pi.SubDistrict}}</td>
               <td>   {{ pi.Neighbor}}</td>
                       <td>   {{ pi.PlotNo}}</td>
-                       <td>   {{ pi.identification }}</td>
                         <td>   {{ pi.OwnerFirstName}}</td>
                            <td>   {{ pi.OwnerSecondName}}</td>
                               <td>   {{ pi.OwnerLastName}}</td>
@@ -49,8 +47,7 @@
                                             
       <td>
     
-        <a class="btn btn-success" href="{% url 'PIupdateform' pi.RegistrationNO%}">Edit</a>
-        <a class="btn btn-danger" href="{% url 'PIdelete' pi.RegistrationNO %}">Delete</a>
+
                                   
       </td>
     </tr>

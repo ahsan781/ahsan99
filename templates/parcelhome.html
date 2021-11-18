@@ -6,7 +6,7 @@
 <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
          <div class="card card-1" >
               
-                <div class="card-body" >
+               
                   
   
  <h2>Parcel<a class="btn btn-warning" href="{% url 'pform'  %}" style='margin-left:100px'>ADD</a></h2>
@@ -15,7 +15,6 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">  Purchaseinfo</th>
       <th scope="col"> Landtype</th>
       <th scope="col">Notary</th>
       <th scope="col">Existingbuilding</th>
@@ -26,6 +25,7 @@
        <th scope="col">  Landwidth</th>
         <th scope="col">  landlenght</th>
          <th scope="col">  Action</th>
+           <th scope="col">  Tables</th>
        
         
     </tr>
@@ -34,7 +34,6 @@
   <tbody>
     <tr>
       <td>{{ forloop.counter }}</td>
-      <td>   {{ p.Purchaseinfo}}</td>
       <td>   {{ p.Landtype}}</td>
       <td>   {{ p.Notary}}</td>
       <td>   {{ p.Existingbuilding}}</td>
@@ -49,7 +48,15 @@
     
         <a class="btn btn-success" href="{% url 'puform' p.Registrationid%}">Edit</a>
         <a class="btn btn-danger" href="{% url 'pdelete' p.Registrationid%}">Delete</a>
+       
                                   
+      </td>
+      <td>
+       <a class="btn btn-info" href="{% url 'slForm1' p.Registrationid%}">Sellerinfo</a><br>
+        <a class="btn btn-secondary" href="{% url 'PIform' p.Registrationid%}">Purchaseinfo</a>
+         <a class="btn btn-info" href="{% url 'dform' p.Registrationid%}">Dhaxal</a>
+          <a class="btn btn-secondary" href="{% url 'idform' p.Registrationid%}">Identification</a>
+           <a class="btn btn-info" href="{% url 'spForm' p.Registrationid%}">SubDOC</a>
       </td>
     </tr>
    

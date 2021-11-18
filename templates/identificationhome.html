@@ -10,7 +10,7 @@
                 <div class="card-body">
                   
   
- <h2>IDENTIFICATION<a class="btn btn-warning" href="{% url 'idform'  %}" style='margin-left:100px'>ADD</a></h2>
+ <h2>IDENTIFICATION</h2>
   </br>               
  <table class="table ">
   <thead>
@@ -21,7 +21,7 @@
        <th scope="col">IDNumber</th>
        <th scope="col">IDissueBy</th>
        <th scope="col">IDdate</th>
-       <th scope="col">Action</th>
+   
       
     </tr>
   </thead>
@@ -35,12 +35,6 @@
         <td>   {{ d.IDissueBy}}</td>
         <td>   {{ d.IDdate }}</td>
        
-      <td>
-    
-        <a class="btn btn-success" href="{% url 'idupdateform' d.id %}">Edit</a>
-        <a class="btn btn-danger" href="{% url 'iddelete' d.id %}">Delete</a>
-                                  
-      </td>
     </tr>
    
   </tbody>

@@ -10,13 +10,13 @@
                 <div class="card-body" >
                   
   
- <h2>Supporting DOC <a class="btn btn-warning" href="{% url 'spform'  %}" style='margin-left:100px'>ADD</a></h2>
+ <h2>Supporting DOC </h2>
   </br>               
   <table class="table ">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">   Parcel</th>
+      <th scope="col">  RegistrationNO</th>
     
        
         
@@ -26,16 +26,11 @@
   <tbody>
     <tr>
       <td>{{ forloop.counter }}</td>
-      <td>   {{ d.Parcel}}</td>
+      <td>   {{ d.RegistrationNO}}</td>
   
 
           
-      <td>
-    
-        <a class="btn btn-success" href="{% url 'spform' d.RegistrationID  %}">Edit</a>
-        <a class="btn btn-danger" href="{% url 'spdelete' d.RegistrationID  %}">Delete</a>
-                                  
-      </td>
+     
     </tr>
    
   </tbody>

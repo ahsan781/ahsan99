@@ -8,6 +8,7 @@ def home(request):
      district = District.objects.all()
      context = {'district':district}
      return render(request, "home.html" , context)
+
 def DistrictFrom(request, id=0):
       if request.method == "GET":
             if id == 0:
@@ -34,15 +35,20 @@ def didelete(request,id):
 def subDistrictFrom(request, id=0):
         if request.method == "GET":
             if id == 0:
-                  form = SubDistrictForm()
+                form = SubDistrictForm()
+               #    form = SubDistrictForm({'SubDistrictname':id})
+                  
+               
             else:
              subdistrict = SubDistrict.objects.get(pk=id)
              form = SubDistrictForm(instance = subdistrict)
+             
             return render(request, "subdistrictform.html", {'form': form})
         else:
            
            if id == 0:
                 form = SubDistrictForm(request.POST)
+                print(request.POST)
            else:
               subdistrict = SubDistrict.objects.get(pk=id)
               form =  SubDistrictForm(request.POST,instance = subdistrict)
@@ -116,23 +122,27 @@ def identificationhome(request):
      context = {'ident':ident}
      return render(request, "identificationhome.html" , context)
 def identificationFrom(request, id=0):
-      if request.method == "GET":
-            if id == 0:
-              form = identificationForm()
-            else:
-             ident = identification.objects.get(pk=id)
-             form = identificationForm(instance=ident)
-            return render(request, "identificationform.html", {'form': form})
-      else:
-           
-           if id == 0:
-                form = identificationForm(request.POST, request.FILES)
-           else:
-              sneighbor = identification.objects.get(pk=id)
-              form =  identificationForm(request.POST, request.FILES,instance= sneighbor)
-           if form.is_valid():
-             form.save()
-             return redirect('/identificationhome')
+     p = Parcel.objects.get( Registrationid = id)
+     seller = identification.objects.filter(RegistrationNO = p)
+     if request.method == 'GET':
+          if seller.count() > 0 : 
+               sid = seller[0]
+               form = identificationForm(instance = sid)
+         
+          else:
+
+               form = identificationForm({'RegistrationNO':id})
+          return render(request, "identificationform.html", {'form': form})
+
+     if request.method == "POST":
+          if seller.count() > 0 : 
+               sid = seller[0]                
+               form = identificationForm(request.POST,request.FILES,instance= sid)         
+          else:
+               form = identificationForm(request.POST,request.FILES)
+          if form.is_valid():               
+               form.save()
+          return redirect('/identificationhome')
 
 def identificationdelete(request,id):
     employee = identification.objects.get(pk=id)
@@ -224,23 +234,29 @@ def PIhome(request):
      context = {'PI':PI}
      return render(request, "purchaseinfohome.html" , context)
 def PIFrom(request, id=0):
-      if request.method == "GET":
-            if id == 0:
-              form = Purchaseinfoform()
-            else:
-             ident = Purchaseinfo.objects.get(pk=id)
-             form = Purchaseinfoform(instance=ident)
-            return render(request, "purchaseinfoform.html", {'form': form})
-      else:
-           
-           if id == 0:
-                form = Purchaseinfoform(request.POST,request.FILES)
-           else:
-              sneighbor = Purchaseinfo.objects.get(pk=id)
-              form =  Purchaseinfoform(request.POST, request.FILES,instance= sneighbor,)
-           if form.is_valid():
-             form.save()
-             return redirect('/PIhome')
+     p = Parcel.objects.get( Registrationid = id)
+     seller = Purchaseinfo.objects.filter(RegistrationID = p)
+     if request.method == 'GET':
+          if seller.count() > 0 : 
+               sid = seller[0]
+               form = Purchaseinfoform(instance = sid)
+         
+          else:
+
+               form = Purchaseinfoform({'RegistrationID':id})
+          return render(request, "purchaseinfoform.html", {'form': form})
+
+     if request.method == "POST":
+          if seller.count() > 0 : 
+               sid = seller[0]                
+               form = Purchaseinfoform(request.POST,request.FILES,instance= sid)         
+          else:
+               form = Purchaseinfoform(request.POST,request.FILES)
+          if form.is_valid():               
+               form.save()
+          return redirect('/PIhome')
+          
+          
 
 def PIdelete(request,id):
     employee = Purchaseinfo.objects.get(pk=id)
@@ -308,6 +324,7 @@ def pForm(request, id=0):
       if request.method == "GET":
             if id == 0:
               form = Parcelform()
+          
             else:
              ident = Parcel.objects.get(pk=id)
              form = Parcelform(instance=ident)
@@ -321,6 +338,7 @@ def pForm(request, id=0):
               form = Parcelform(request.POST,instance= sneighbor)
            if form.is_valid():
               form.save()
+              print(form)
               return redirect('/phome')
 
 def pdelete(request,id):
@@ -332,24 +350,31 @@ def slhome(request):
      Sl = Sellerinfo.objects.all()
      context = {'Sl':Sl}
      return render(request, "sellerinfohome.html" , context)
-def slForm(request, id=0):
-      if request.method == "GET":
-            if id == 0:
-              form = sellerinfoform()
-            else:
-             ident = Sellerinfo.objects.get(pk=id)
-             form = sellerinfoform(instance=ident)
-            return render(request, "sellerinfoform.html", {'form': form})
-      else:
-           
-           if id == 0:
-                form = sellerinfoform(request.POST,request.FILES)
-           else:
-              sneighbor = Sellerinfo.objects.get(pk=id)
-              form = sellerinfoform(request.POST,request.FILES,instance= sneighbor,)
-           if form.is_valid():
-              form.save()
-           return redirect('/slhome')
+def slForm1(request, id=0):
+
+     p = Parcel.objects.get( Registrationid = id)
+     seller = Sellerinfo.objects.filter(RegistrationNO = p)
+     if request.method == 'GET':
+          if seller.count() > 0 : 
+               sid = seller[0]
+               form = sellerinfoform(instance = sid)
+         
+          else:
+
+               form = sellerinfoform({'RegistrationNO':id})
+          return render(request, "sellerinfoform.html", {'form': form})
+
+     if request.method == "POST":
+          if seller.count() > 0 : 
+               sid = seller[0]                
+               form = sellerinfoform(request.POST,request.FILES,instance= sid)         
+          else:
+               form = sellerinfoform(request.POST,request.FILES)
+          if form.is_valid():               
+               form.save()
+          return redirect('/slhome')
+          
+          
 
 def sldelete(request,id):
     employee = Sellerinfo.objects.get(pk=id)
@@ -360,23 +385,28 @@ def dhome(request):
      context = {'Da':Da}
      return render(request, "Dhaxalayaalhome.html" , context)
 def dForm(request, id=0):
-      if request.method == "GET":
-            if id == 0:
-              form = Dhaxalform()
-            else:
-             ident = Dhaxalayaal.objects.get(pk=id)
-             form = Dhaxalform(instance=ident)
-            return render(request, "Dhaxalayaalform.html", {'form': form})
-      else:
-           
-           if id == 0:
-                form = Dhaxalform(request.POST)
-           else:
-              sneighbor = Dhaxalayaal.objects.get(pk=id)
-              form = Dhaxalform(request.POST,instance= sneighbor,)
-           if form.is_valid():
-              form.save()
-           return redirect('/dhome')
+     p = Parcel.objects.get( Registrationid = id)
+     seller = Dhaxalayaal.objects.filter(RegistrationNO = p)
+     if request.method == 'GET':
+          if seller.count() > 0 : 
+               sid = seller[0]
+               form = Dhaxalform(instance = sid)
+         
+          else:
+
+               form = Dhaxalform({'RegistrationNO':id})
+          return render(request, "Dhaxalayaalform.html", {'form': form})
+
+     if request.method == "POST":
+          if seller.count() > 0 : 
+               sid = seller[0]                
+               form = Dhaxalform(request.POST,request.FILES,instance= sid)         
+          else:
+               form = Dhaxalform(request.POST,request.FILES)
+          if form.is_valid():               
+               form.save()
+          return redirect('/dhome')
+          
 
 def ddelete(request,id):
     employee = Dhaxalayaal.objects.get(pk=id)
@@ -414,23 +444,27 @@ def sphome(request):
      context = {'Da':Da}
      return render(request, "supportingdochome.html" , context)
 def spForm(request, id=0):
-      if request.method == "GET":
-            if id == 0:
-              form = SupportingDocForm()
-            else:
-             ident = SupportingDOC.objects.get(pk=id)
-             form = SupportingDocForm(instance=ident)
-            return render(request, "supportingdocform.html", {'form': form})
-      else:
-           
-           if id == 0:
-                form = SupportingDocForm(request.POST,request.FILES,)
-           else:
-              sneighbor = SupportingDOC.objects.get(pk=id)
-              form = SupportingDocForm(request.POST,request.FILES,instance= sneighbor,)
-           if form.is_valid():
-              form.save()
-           return redirect('/sphome')
+     p = Parcel.objects.get( Registrationid = id)
+     seller = SupportingDOC.objects.filter(RegistrationNO = p)
+     if request.method == 'GET':
+          if seller.count() > 0 : 
+               sid = seller[0]
+               form = SupportingDocForm(instance = sid)
+         
+          else:
+
+               form = SupportingDocForm({'RegistrationNO':id})
+          return render(request, "supportingdocform.html", {'form': form})
+
+     if request.method == "POST":
+          if seller.count() > 0 : 
+               sid = seller[0]                
+               form = SupportingDocForm(request.POST,request.FILES,instance= sid)         
+          else:
+               form = SupportingDocForm(request.POST,request.FILES)
+          if form.is_valid():               
+               form.save()
+          return redirect('/sphome')
 
 def spdelete(request,id):
     employee = SupportingDOC.objects.get(pk=id)
