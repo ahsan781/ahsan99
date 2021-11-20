@@ -8,15 +8,16 @@
             <div class="card card-1">
               
                 <div class="card-body">
-  <h2>Neighbor     <a class="btn btn-warning" href="{% url 'nform'  %}" style='margin-left:140px'>ADD</a></h2>
+  <h2>Neighbor </h2>
   </br>               
  <table class="table ">
   <thead>
     <tr>
       <th scope="col">#</th>
+      <th scope="col">SubDistrict NO</th>
       <th scope="col">Neighbor Name</th>
-      <th scope="col">SubDistrict</th>
        <th scope="col">Action</th>
+        <th scope="col">Table</th>
       
     </tr>
   </thead>
@@ -24,13 +25,17 @@
   <tbody>
     <tr>
       <td>{{ forloop.counter }}</td>
+       <td>   {{ n.subDistrict }}</td>
       <td>   {{ n.Neighborname }}</td>
-      <td>   {{ n.subDistrict }}</td>
+     
       <td>
    
         <a class="btn btn-success" href="{% url 'nupdateform' n.id %}">Edit</a>
         <a class="btn btn-danger" href="{% url 'ndelete' n.id %}">Delete</a>
                                   
+      </td>
+      <td>
+           <a class="btn btn-secondary" href="{% url 'snupdateform1' n.id %}">SubNeighbor</a>
       </td>
     </tr>
    

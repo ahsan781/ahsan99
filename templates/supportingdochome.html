@@ -17,6 +17,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">  RegistrationNO</th>
+         <th scope="col">  Action</th>
     
        
         
@@ -29,7 +30,12 @@
       <td>   {{ d.RegistrationNO}}</td>
   
 
+          <td>
           
+        <a class="btn btn-success" href="{% url 'spForm1' d.RegistrationID  %}">Edit</a>
+        <a class="btn btn-danger" href="{% url 'spdelete' d.RegistrationID  %}">Delete</a>
+                        
+          </td>
      
     </tr>
    

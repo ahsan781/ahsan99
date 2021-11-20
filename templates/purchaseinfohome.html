@@ -7,7 +7,7 @@
     
             <div class="card card-1" >
           
-                  
+               <div class="card-body" >    
   
  <h2>Purchase INFO </h2>
   </br>               
@@ -19,10 +19,10 @@
       <th scope="col">SubDistrict</th>
       <th scope="col">Neighbor</th>
       <th scope="col">PlotNo</th>
-      <th scope="col"> OwnerFirstName</th>
-      <th scope="col"> OwnerSecondName</th>
-      <th scope="col"> OwnerLastName</th>
-      <th scope="col"> OwnerSurName</th>
+      <th scope="col"> FirstName</th>
+      <th scope="col"> SecondName</th>
+      <th scope="col"> LastName</th>
+      <th scope="col"> SurName</th>
       <th scope="col">Mobile</th>
        <th scope="col">Email</th>
              <th scope="col">Action</th>
@@ -47,7 +47,8 @@
                                             
       <td>
     
-
+ <a class="btn btn-success" href="{% url 'PIform1' pi.RegistrationNO%}">Edit</a>
+        <a class="btn btn-danger" href="{% url 'PIdelete' pi.RegistrationNO %}">Delete</a>
                                   
       </td>
     </tr>

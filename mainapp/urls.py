@@ -3,19 +3,17 @@ from django.urls import path, include
 from . import views
 urlpatterns = [
 
-    path('', views.home, name='home'),
+    path('', views.Login, name='login'),
+    path('home/', views.home, name='home'),
     path('districtform/', views.DistrictFrom, name='diform'),
     path('<int:id>/',views.DistrictFrom, name='updateform'),
     path('didelete/<int:id>', views.didelete ,name='didelete'),
-    path('subdistrictform/', views.subDistrictFrom, name='sdform'),
     path('subdistricthome/', views.subdistricthome, name='sdhome'),
     path('subdistrictform/<int:id>/',views.subDistrictFrom, name='sdupdateform'),
     path('sddelete/<int:id>', views.sddelete ,name='sddelete'),
-    path('neighborform/', views.neighborFrom,  name='nform'),
     path('neighborhome/', views.neighborhome, name='nhome'),
     path('neighborform/<int:id>/',views.neighborFrom, name='nupdateform'),
     path('ndelete/<int:id>', views.ndelete ,name='ndelete'),
-    path('subneighborform/', views.subneighborFrom,  name='snform'),
     path('subneighborhome/', views.subneighborhome, name='snhome'),
     path('subneighborform/<int:id>/',views.subneighborFrom, name='snupdateform'),
     path('sndelete/<int:id>', views.sndelete ,name='sndelete'),
@@ -55,9 +53,8 @@ urlpatterns = [
     path('dhome/', views.dhome, name='dhome'),
     path('dForm/<int:id>/',views.dForm, name='dform'),
     path('ddelete/<int:id>', views.ddelete, name='ddelete'),
-    path('dsForm/', views.dsForm,  name='dsform'),
     path('dshome/', views.dshome, name='dshome'),
-    path('dsForm/<int:id>/',views.dsForm, name='dsform'),
+    path('dsForm/<int:id>/',views.dsForm, name='dsForm'),
     path('dsdelete/<int:id>', views.dsdelete, name='dsdelete'),
     path('sphome/', views.sphome, name='sphome'),
     path('spForm/<int:id>/',views.spForm, name='spForm'),
@@ -102,8 +99,17 @@ urlpatterns = [
     path('cthome/', views.cthome, name='cthome'),
     path('ctForm/<int:id>/',views.ctForm, name='ctform'),
     path('ctdelete/<int:id>', views.ctdelete, name='ctdelete'),
-    
-    
+    path('subdistrictform1/<int:id>/',views.subDistrictFrom1, name='subdistrictform1'),
+    path('neighborform1/<int:id>/',views.neighborFrom1, name='nupdateForm1'),
+    path('subneighborform1/<int:id>/',views.subneighborFrom1, name='snupdateform1'),
+    path('PIFrom1/<int:id>/',views.PIFrom1, name='PIform1'),
+    path('identificationFrom1/<int:id>/',views.identificationFrom1, name='idform1'),
+    path('slForm/<int:id>/',views.slForm, name='slForm'),
+    path('dForm1/<int:id>/',views.dForm1, name='dform1'),
+    path('dsForm1/<int:id>/',views.dsForm1, name='dsForm1'),
+    path('spForm1/<int:id>/',views.spForm1, name='spForm1'),
+    path('signup/',views.signup, name='signup'),
+    path('logout/', views.ulogout, name='logout'),
     # path('dedit/<int:id>', views.dedit, name='dedit'),
     # path('subdistrict', views.subdistrcit, name='subdistrcit')
 

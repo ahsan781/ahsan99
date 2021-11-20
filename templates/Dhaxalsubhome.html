@@ -10,13 +10,14 @@
                 <div class="card-body" >
                   
   
- <h2>Dhaxalayaal SUB DOC <a class="btn btn-warning" href="{% url 'dsform'  %}" style='margin-left:100px'>ADD</a></h2>
+ <h2>Dhaxalayaal SUB DOC </h2>
   </br>               
   <table class="table ">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">   Parcel</th>
+      <th scope="col">  RegistrationNO </th>
+           <th scope="col"> Action </th>
     
        
         
@@ -26,14 +27,13 @@
   <tbody>
     <tr>
       <td>{{ forloop.counter }}</td>
-      <td>   {{ d.Parcel}}</td>
-  
-
-          
+      <td>   {{ d.RegistrationNO }}</td>     
       <td>
     
-        <a class="btn btn-success" href="{% url 'dsform' d.RegistrationID  %}">Edit</a>
+      
+        <a class="btn btn-success" href="{% url 'dsform1' d.RegistrationID  %}">Edit</a>
         <a class="btn btn-danger" href="{% url 'dsdelete' d.RegistrationID  %}">Delete</a>
+          
                                   
       </td>
     </tr>

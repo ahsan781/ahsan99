@@ -7,13 +7,13 @@
         <div class="wrapper wrapper--w680">
             <div class="card card-1">
                 <div class="card-body">
-  <h2>SubNeighbor   <a class="btn btn-warning" href="{% url 'snform'  %}" style='margin-left:100px'>ADD</a></h2>
+  <h2>SubNeighbor  </h2>
   </br>               
  <table class="table ">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Neighbor</th>
+      <th scope="col">Neighbor NO</th>
       <th scope="col">SubNeighbor</th>
        <th scope="col">Action</th>
       
@@ -23,12 +23,18 @@
   <tbody>
     <tr>
       <td>{{ forloop.counter }}</td>
-      <td>   {{ sn.Neigbour }}</td>
+      <td>   {{ sn.neigbour }}</td>
       <td>   {{ sn.SubNeighborname }}</td>
       <td>
      
         <a class="btn btn-success" href="{% url 'snupdateform' sn.id %}">Edit</a>
         <a class="btn btn-danger" href="{% url 'sndelete' sn.id %}">Delete</a>
+                                  
+      </td>
+        <td>
+     
+      
+     
                                   
       </td>
     </tr>

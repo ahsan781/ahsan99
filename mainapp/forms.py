@@ -6,22 +6,22 @@ class DistrictForm(forms.ModelForm):
 
     class Meta:
         model = District
-        fields = ('name',)
+        fields = ('user','name')
 
 class SubDistrictForm(forms.ModelForm):
     
     class Meta:
         model = SubDistrict
-        fields = ('SubDistrictname','District',)
+        fields = ('user','district','SubDistrictname')
     
     def __init__(self, *args, **kwargs):
         super(SubDistrictForm,self).__init__(*args, **kwargs)
-        self.fields['District'].empty_label = "Select"
+        self.fields['district'].empty_label = "Select"
 class NeighborForm(forms.ModelForm):
     
     class Meta:
         model = Neighbor
-        fields = ('subDistrict','Neighborname',)
+        fields = ('user','subDistrict','Neighborname',)
 
     def __init__(self, *args, **kwargs):
         super(NeighborForm,self).__init__(*args, **kwargs)
@@ -30,11 +30,11 @@ class SubNeigborForm(forms.ModelForm):
     
     class Meta:
         model = SubNeighbor
-        fields = ('Neigbour','SubNeighborname',)
+        fields = ('user','neigbour','SubNeighborname',)
 
     def __init__(self, *args, **kwargs):
         super(SubNeigborForm,self).__init__(*args, **kwargs)
-        self.fields['Neigbour'].empty_label = "Select"
+        self.fields['neigbour'].empty_label = "Select"
 class identificationForm(forms.ModelForm):
     ScanedID = forms.FileField(required=False)
     IDdate= forms.DateField(
@@ -43,7 +43,7 @@ class identificationForm(forms.ModelForm):
   
     class Meta:
         model = identification
-        fields = ( 'RegistrationNO','IDType' ,'OtherID','IDNumber','IDissueBy','IDdate','ScanedID')
+        fields = ( 'user','RegistrationNO','IDType' ,'OtherID','IDNumber','IDissueBy','IDdate','ScanedID')
     def __init__(self, *args, **kwargs):
         super(identificationForm,self).__init__(*args, **kwargs)
         self.fields['RegistrationNO'].empty_label = "Select"
@@ -79,7 +79,7 @@ class Purchaseinfoform(forms.ModelForm):
     
     class Meta:
         model = Purchaseinfo
-        fields = ( 'RegistrationID','District','SubDistrict', 'Neighbor' , 'PlotNo',  'OwnerFirstName' , 'OwnerSecondName', 'OwnerLastName', 'OwnerSurName', 'Mobile', 'Email', 'OtherProperty')
+        fields = ('user', 'RegistrationID','District','SubDistrict', 'Neighbor' , 'PlotNo',  'OwnerFirstName' , 'OwnerSecondName', 'OwnerLastName', 'OwnerSurName', 'Mobile', 'Email', 'OtherProperty')
     def __init__(self, *args, **kwargs):
         super(Purchaseinfoform,self).__init__(*args, **kwargs)
         self.fields['RegistrationID'].empty_label = "Select"
@@ -107,7 +107,7 @@ class Parcelform(forms.ModelForm):
 
     class Meta:
         model = Parcel
-        fields = ('Landtype', 'Notary' , 'Existingbuilding','Landpurchaseamount',  'PurchaseDate' , 'FileNO', 'LandUsetype', 'Landwidth', 'landlenght')
+        fields = ('user','Landtype', 'Notary' , 'Existingbuilding','Landpurchaseamount',  'PurchaseDate' , 'FileNO', 'LandUsetype', 'Landwidth', 'landlenght')
     def __init__(self, *args, **kwargs):
         super(Parcelform,self).__init__(*args, **kwargs)
         self.fields['Landtype'].empty_label = "Select"
@@ -129,7 +129,7 @@ class sellerinfoform(forms.ModelForm):
     widget=forms.DateInput(format = '%Y-%m-%d',attrs={'type': 'DOB'}),)
     class Meta:
         model = Sellerinfo
-        fields = ('RegistrationNO', 'FirstName','SecondName','LastName','SurName','Gender','DOB','MobileNO1','MobileNo2','Email')
+        fields = ('user','RegistrationNO', 'FirstName','SecondName','LastName','SurName','Gender','DOB','MobileNO1','MobileNo2','Email')
     def __init__(self, *args, **kwargs):
         super(sellerinfoform,self).__init__(*args, **kwargs)
         self.fields['RegistrationNO'].empty_label = "Select"
@@ -152,7 +152,7 @@ class Dhaxalform(forms.ModelForm):
     widget=forms.DateInput(format = '%Y-%m-%d',attrs={'type': 'DOB'}),)
     class Meta:
         model = Dhaxalayaal
-        fields = ( 'RegistrationNO', 'FirstName','SecondName','LastName','Gender','DOB','Telephone')
+        fields = ( 'user','RegistrationNO', 'FirstName','SecondName','LastName','Gender','DOB','Telephone')
     def __init__(self, *args, **kwargs):
         super(Dhaxalform,self).__init__(*args, **kwargs)
         self.fields['RegistrationNO'].empty_label = "Select"
@@ -165,10 +165,10 @@ class DhaxalSubForm(forms.ModelForm):
     KalawarejinDOC4  = forms.FileField(required=False)
     class Meta:
         model = DhaxalSubDoc
-        fields = ('Parcel','KalawarejinDOC1','KalawarejinDOC2','KalawarejinDOC3','KalawarejinDOC4')
+        fields = ('user','RegistrationNO','KalawarejinDOC1','KalawarejinDOC2','KalawarejinDOC3','KalawarejinDOC4')
     def __init__(self, *args, **kwargs):
         super(DhaxalSubForm,self).__init__(*args, **kwargs)
-        self.fields['Parcel'].empty_label = "Select"
+        self.fields['RegistrationNO'].empty_label = "Select"
   
 class SupportingDocForm(forms.ModelForm):
     IDcard  = forms.FileField(required=False)
@@ -181,7 +181,7 @@ class SupportingDocForm(forms.ModelForm):
     FileScan  = forms.FileField(required=False)
     class Meta:
         model = SupportingDOC
-        fields = ('RegistrationNO','IDcard','GentalReciptVoucher','MasterPlan','NotaryAuthorization','UploadCustomRegisForm','Hibyan','Dhaxal','FileScan')
+        fields = ('user','RegistrationNO','IDcard','GentalReciptVoucher','MasterPlan','NotaryAuthorization','UploadCustomRegisForm','Hibyan','Dhaxal','FileScan')
     def __init__(self, *args, **kwargs):
         super(SupportingDocForm,self).__init__(*args, **kwargs)
         self.fields['RegistrationNO'].empty_label = "Select"

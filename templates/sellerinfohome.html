@@ -26,6 +26,7 @@
       <th scope="col">      MobileNO1 </th>
        <th scope="col">   MobileNo2 </th>
         <th scope="col">    Email</th>
+         <th scope="col">    Action</th>
         
     </tr>
   </thead>
@@ -45,7 +46,10 @@
       <td>   {{ sl.Email}}</td>
           
       <td>
-    
+        
+        <a class="btn btn-success" href="{% url 'slForm' sl.Registrationid%}">Edit</a>
+        <a class="btn btn-danger" href="{% url 'sldelete' sl.Registrationid%}">Delete</a>
+
                    
       </td>
     </tr>

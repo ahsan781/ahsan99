@@ -1,18 +1,23 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from django.http.response import HttpResponseRedirect
-from mainapp.models import District, SubDistrict,Neighbor, SubNeighbor,identification,PropertyMap,PlotNo,Plotmap, Purchaseinfo,Notary,Landtype,Parcel,Sellerinfo,Dhaxalayaal,DhaxalSubDoc,SupportingDOC,BussinessRegistration,BussinessRegistrator,BussinessStatus,Coordinates,KalawarejinSubDoc,PropertyRevenu,BussinessRevenu,Charges,Currencies,ChagreType
+from mainapp.models import  District, SubDistrict,Neighbor, SubNeighbor,identification,PropertyMap,PlotNo,Plotmap, Purchaseinfo,Notary,Landtype,Parcel,Sellerinfo,Dhaxalayaal,DhaxalSubDoc,SupportingDOC,BussinessRegistration,BussinessRegistrator,BussinessStatus,Coordinates,KalawarejinSubDoc,PropertyRevenu,BussinessRevenu,Charges,Currencies,ChagreType
 from .forms import Dhaxalform, DistrictForm ,SubDistrictForm, NeighborForm, SubNeigborForm,identificationForm,Plotmapform,Plotnoform,PropertyMapForm, Purchaseinfoform,Landtypeform , Notaryform, Parcelform,sellerinfoform,Dhaxalform,DhaxalSubForm,SupportingDocForm,BussinessRegform,BussinessRegistratorform,Bussinessstatusform,Coordinateform,kalawarejinform,PRform,BReform,Chargeform,Currenciesform,ChagreTypeform
-
+from django.contrib.auth  import authenticate,  login, logout
+from django.contrib import messages
+import re
 # Create your views here.
 def home(request):
-     district = District.objects.all()
+     user1 = User.objects.get(username=request.user.username)
+     district = District.objects.filter(user=user1)
      context = {'district':district}
      return render(request, "home.html" , context)
 
 def DistrictFrom(request, id=0):
       if request.method == "GET":
             if id == 0:
-              form = DistrictForm()
+              user = User.objects.get(username=request.user.username)
+              form = DistrictForm({'user':user})
             else:
              district = District.objects.get(pk=id)
              form = DistrictForm(instance=district)
@@ -21,17 +26,20 @@ def DistrictFrom(request, id=0):
            
            if id == 0:
                 form = DistrictForm(request.POST)
+               
+
            else:
               district = District.objects.get(pk=id)
               form =  DistrictForm(request.POST,instance= district)
            if form.is_valid():
              form.save()
-             return redirect('/')
+        
+             return redirect('/home')
 
 def didelete(request,id):
     employee = District.objects.get(pk=id)
     employee.delete()
-    return redirect('/')
+    return redirect('/home')
 def subDistrictFrom(request, id=0):
         if request.method == "GET":
             if id == 0:
@@ -55,8 +63,32 @@ def subDistrictFrom(request, id=0):
            if form.is_valid():
               form.save()
               return redirect('/subdistricthome')
+def subDistrictFrom1(request, id=0):
+     p = District.objects.get( pk = id)
+     seller = SubDistrict.objects.filter( district = p)
+     if request.method == 'GET':
+          if seller.count() > 0 : 
+               sid = seller[0]
+               form = SubDistrictForm(instance = sid)
+         
+          else:
+               user = User.objects.get(username=request.user.username)
+               form = SubDistrictForm({'district':id,'user':user})
+          return render(request, "subdistrictform.html", {'form': form})
+
+     if request.method == "POST":
+          if seller.count() > 0 : 
+               sid = seller[0]                
+               form = SubDistrictForm(request.POST,request.FILES,instance= sid)         
+          else:
+               form = SubDistrictForm(request.POST,request.FILES)
+          if form.is_valid():               
+               form.save()
+          return redirect('/subdistricthome')
+          
 def subdistricthome(request):
-     Subdistrict = SubDistrict.objects.all()
+     user1 = User.objects.get(username=request.user.username)
+     Subdistrict = SubDistrict.objects.filter(user = user1)
      context = {'subdistrict':Subdistrict}
      return render(request, "subdistricthome.html" , context)
 def sddelete(request,id):
@@ -64,7 +96,8 @@ def sddelete(request,id):
     subdistrict.delete()
     return redirect('/subdistricthome')
 def neighborhome(request):
-     neighbor = Neighbor.objects.all()
+     user1 = User.objects.get(username=request.user.username)
+     neighbor = Neighbor.objects.filter(user = user1)
      context = {'neighbor':neighbor}
      return render(request, "neighborhome.html" , context)
 def neighborFrom(request, id=0):
@@ -85,13 +118,35 @@ def neighborFrom(request, id=0):
            if form.is_valid():
              form.save()
              return redirect('/neighborhome')
+def neighborFrom1(request, id=0):
+     p = SubDistrict.objects.get( pk = id)
+     seller = Neighbor.objects.filter( subDistrict = p)
+     if request.method == 'GET':
+          if seller.count() > 0 : 
+               sid = seller[0]
+               form = NeighborForm(instance = sid)
+         
+          else:
+               user = User.objects.get(username=request.user.username)
+               form = NeighborForm({'subDistrict':id,'user':user})
+          return render(request, "neighborform.html", {'form': form})
 
+     if request.method == "POST":
+          if seller.count() > 0 : 
+               sid = seller[0]                
+               form = NeighborForm(request.POST,request.FILES,instance= sid)         
+          else:
+               form = NeighborForm(request.POST,request.FILES)
+          if form.is_valid():               
+               form.save()
+          return redirect('/neighborhome')
 def ndelete(request,id):
     employee = Neighbor.objects.get(pk=id)
     employee.delete()
     return redirect('/neighborhome')
 def subneighborhome(request):
-     sneighbor = SubNeighbor.objects.all()
+     user1 = User.objects.get(username=request.user.username)
+     sneighbor = SubNeighbor.objects.filter(user = user1)
      context = {'sneighbor':sneighbor}
      return render(request, "subneighborhome.html" , context)
 def subneighborFrom(request, id=0):
@@ -112,13 +167,35 @@ def subneighborFrom(request, id=0):
            if form.is_valid():
              form.save()
              return redirect('/subneighborhome')
+def subneighborFrom1(request, id=0):
+     p = Neighbor.objects.get( pk = id)
+     seller = SubNeighbor.objects.filter(  neigbour = p)
+     if request.method == 'GET':
+          if seller.count() > 0 : 
+               sid = seller[0]
+               form = SubNeigborForm(instance = sid)
+         
+          else:
+               user = User.objects.get(username=request.user.username)
+               form = SubNeigborForm({'neigbour':id,'user':user})
+          return render(request, "subneighborform.html", {'form': form})
 
+     if request.method == "POST":
+          if seller.count() > 0 : 
+               sid = seller[0]                
+               form = SubNeigborForm(request.POST,request.FILES,instance= sid)         
+          else:
+               form = SubNeigborForm(request.POST,request.FILES)
+          if form.is_valid():               
+               form.save()
+          return redirect('/subneighborhome')
 def sndelete(request,id):
     employee = SubNeighbor.objects.get(pk=id)
     employee.delete()
     return redirect('/subneighborhome')
 def identificationhome(request):
-     ident = identification.objects.all()
+     user1 = User.objects.get(username=request.user.username)
+     ident = identification.objects.filter(user=user1)
      context = {'ident':ident}
      return render(request, "identificationhome.html" , context)
 def identificationFrom(request, id=0):
@@ -130,8 +207,8 @@ def identificationFrom(request, id=0):
                form = identificationForm(instance = sid)
          
           else:
-
-               form = identificationForm({'RegistrationNO':id})
+               user = User.objects.get(username=request.user.username)
+               form = identificationForm({'RegistrationNO':id,'user':user})
           return render(request, "identificationform.html", {'form': form})
 
      if request.method == "POST":
@@ -230,7 +307,8 @@ def PLMdelete(request,id):
     employee.delete()
     return redirect('/PLMhome')
 def PIhome(request):
-     PI= Purchaseinfo.objects.all()
+     user1 = User.objects.get(username=request.user.username)
+     PI= Purchaseinfo.objects.filter(user = user1)
      context = {'PI':PI}
      return render(request, "purchaseinfohome.html" , context)
 def PIFrom(request, id=0):
@@ -242,8 +320,8 @@ def PIFrom(request, id=0):
                form = Purchaseinfoform(instance = sid)
          
           else:
-
-               form = Purchaseinfoform({'RegistrationID':id})
+               user = User.objects.get(username=request.user.username)
+               form = Purchaseinfoform({'RegistrationID':id,'user':user})
           return render(request, "purchaseinfoform.html", {'form': form})
 
      if request.method == "POST":
@@ -317,13 +395,15 @@ def Landelete(request,id):
     employee.delete()
     return redirect('/Lanhome')
 def phome(request):
-     P = Parcel.objects.all()
+     user1 = User.objects.get(username=request.user.username)
+     P = Parcel.objects.filter(user = user1)
      context = {'P':P}
      return render(request, "parcelhome.html" , context)
 def pForm(request, id=0):
       if request.method == "GET":
             if id == 0:
-              form = Parcelform()
+              user = User.objects.get(username=request.user.username)
+              form = Parcelform({'user':user})
           
             else:
              ident = Parcel.objects.get(pk=id)
@@ -347,7 +427,8 @@ def pdelete(request,id):
     return redirect('/phome')
 
 def slhome(request):
-     Sl = Sellerinfo.objects.all()
+     user1 = User.objects.get(username=request.user.username)
+     Sl = Sellerinfo.objects.filter(user = user1)
      context = {'Sl':Sl}
      return render(request, "sellerinfohome.html" , context)
 def slForm1(request, id=0):
@@ -360,8 +441,8 @@ def slForm1(request, id=0):
                form = sellerinfoform(instance = sid)
          
           else:
-
-               form = sellerinfoform({'RegistrationNO':id})
+               user = User.objects.get(username=request.user.username)
+               form = sellerinfoform({'RegistrationNO':id,'user':user})
           return render(request, "sellerinfoform.html", {'form': form})
 
      if request.method == "POST":
@@ -381,7 +462,8 @@ def sldelete(request,id):
     employee.delete()
     return redirect('/slhome')
 def dhome(request):
-     Da = Dhaxalayaal.objects.all()
+     user1 = User.objects.get(username=request.user.username)
+     Da = Dhaxalayaal.objects.filter(user = user1)
      context = {'Da':Da}
      return render(request, "Dhaxalayaalhome.html" , context)
 def dForm(request, id=0):
@@ -393,8 +475,8 @@ def dForm(request, id=0):
                form = Dhaxalform(instance = sid)
          
           else:
-
-               form = Dhaxalform({'RegistrationNO':id})
+               user = User.objects.get(username=request.user.username)
+               form = Dhaxalform({'RegistrationNO':id,'user':user})
           return render(request, "Dhaxalayaalform.html", {'form': form})
 
      if request.method == "POST":
@@ -413,34 +495,42 @@ def ddelete(request,id):
     employee.delete()
     return redirect('/dhome')
 def dshome(request):
-     Da = DhaxalSubDoc.objects.all()
+     user1 = User.objects.get(username=request.user.username)
+     Da = DhaxalSubDoc.objects.all(user = user1)
      context = {'Da':Da}
      return render(request, "Dhaxalsubhome.html" , context)
 def dsForm(request, id=0):
-      if request.method == "GET":
-            if id == 0:
-              form = DhaxalSubForm()
-            else:
-             ident = DhaxalSubDoc.objects.get(pk=id)
-             form = DhaxalSubForm(instance=ident)
-            return render(request, "Dhaxayaalsubform.html", {'form': form})
-      else:
-           
-           if id == 0:
-                form = DhaxalSubForm(request.POST,request.FILES,)
-           else:
-              sneighbor = DhaxalSubDoc.objects.get(pk=id)
-              form = DhaxalSubForm(request.POST,request.FILES,instance= sneighbor,)
-           if form.is_valid():
-              form.save()
-           return redirect('/dshome')
+     p = Parcel.objects.get( Registrationid = id)
+     seller = DhaxalSubDoc.objects.filter(RegistrationNO = p)
+     if request.method == 'GET':
+          if seller.count() > 0 : 
+               sid = seller[0]
+               form = DhaxalSubForm(instance = sid)
+         
+          else:
+               user = User.objects.get(username=request.user.username)
+               form = DhaxalSubForm({'RegistrationNO':id,'user':user})
+          return render(request, "Dhaxayaalsubform.html", {'form': form})
+
+     if request.method == "POST":
+          if seller.count() > 0 : 
+               sid = seller[0]                
+               form = DhaxalSubForm(request.POST,request.FILES,instance= sid)         
+          else:
+               form = DhaxalSubForm(request.POST,request.FILES)
+          if form.is_valid():               
+               form.save()
+          return redirect('/dshome')
+          
+
 
 def dsdelete(request,id):
     employee = DhaxalSubDoc.objects.get(pk=id)
     employee.delete()
     return redirect('/dshome')
 def sphome(request):
-     Da = SupportingDOC.objects.all()
+     user1 = User.objects.get(username=request.user.username)
+     Da = SupportingDOC.objects.filter(user = user1)
      context = {'Da':Da}
      return render(request, "supportingdochome.html" , context)
 def spForm(request, id=0):
@@ -452,8 +542,8 @@ def spForm(request, id=0):
                form = SupportingDocForm(instance = sid)
          
           else:
-
-               form = SupportingDocForm({'RegistrationNO':id})
+               user = User.objects.get(username=request.user.username)
+               form = SupportingDocForm({'RegistrationNO':id,'user':user})
           return render(request, "supportingdocform.html", {'form': form})
 
      if request.method == "POST":
@@ -744,3 +834,172 @@ def ctdelete(request,id):
     employee = ChagreType.objects.get(pk=id)
     employee.delete()
     return redirect('/cthome')
+def PIFrom1(request, id=0):
+      if request.method == "GET":
+            if id == 0:
+              form = Purchaseinfoform()
+            else:
+             ident = Purchaseinfo.objects.get(pk=id)
+             form = Purchaseinfoform(instance=ident)
+            return render(request, "purchaseinfoform.html", {'form': form})
+      else:
+           
+           if id == 0:
+                form = Purchaseinfoform(request.POST,request.FILES)
+           else:
+              sneighbor = Purchaseinfo.objects.get(pk=id)
+              form =  Purchaseinfoform(request.POST, request.FILES,instance= sneighbor,)
+           if form.is_valid():
+             form.save()
+             return redirect('/PIhome')
+def identificationFrom1(request, id=0):
+      if request.method == "GET":
+            if id == 0:
+              form = identificationForm()
+            else:
+             ident = identification.objects.get(pk=id)
+             form = identificationForm(instance=ident)
+            return render(request, "identificationform.html", {'form': form})
+      else:
+           
+           if id == 0:
+                form = identificationForm(request.POST, request.FILES)
+           else:
+              sneighbor = identification.objects.get(pk=id)
+              form =  identificationForm(request.POST, request.FILES,instance= sneighbor)
+           if form.is_valid():
+             form.save()
+             return redirect('/identificationhome')
+def dsForm1(request, id=0):
+      if request.method == "GET":
+            if id == 0:
+              form = DhaxalSubForm()
+            else:
+             ident = DhaxalSubDoc.objects.get(pk=id)
+             form = DhaxalSubForm(instance=ident)
+            return render(request, "Dhaxayaalsubform.html", {'form': form})
+      else:
+           
+           if id == 0:
+                form = DhaxalSubForm(request.POST,request.FILES,)
+           else:
+              sneighbor = DhaxalSubDoc.objects.get(pk=id)
+              form = DhaxalSubForm(request.POST,request.FILES,instance= sneighbor,)
+           if form.is_valid():
+              form.save()
+           return redirect('/dshome')
+def spForm1(request, id=0):
+      if request.method == "GET":
+            if id == 0:
+              form = SupportingDocForm()
+            else:
+             ident = SupportingDOC.objects.get(pk=id)
+             form = SupportingDocForm(instance=ident)
+            return render(request, "supportingdocform.html", {'form': form})
+      else:
+           
+           if id == 0:
+                form = SupportingDocForm(request.POST,request.FILES,)
+           else:
+              sneighbor = SupportingDOC.objects.get(pk=id)
+              form = SupportingDocForm(request.POST,request.FILES,instance= sneighbor,)
+           if form.is_valid():
+              form.save()
+           return redirect('/sphome')
+def dForm1(request, id=0):
+      if request.method == "GET":
+            if id == 0:
+              form = Dhaxalform()
+            else:
+             ident = Dhaxalayaal.objects.get(pk=id)
+             form = Dhaxalform(instance=ident)
+            return render(request, "Dhaxalayaalform.html", {'form': form})
+      else:
+           
+           if id == 0:
+                form = Dhaxalform(request.POST)
+           else:
+              sneighbor = Dhaxalayaal.objects.get(pk=id)
+              form = Dhaxalform(request.POST,instance= sneighbor,)
+           if form.is_valid():
+              form.save()
+           return redirect('/dhome')
+def slForm(request, id=0):
+      if request.method == "GET":
+            if id == 0:
+              form = sellerinfoform()
+            else:
+             ident = Sellerinfo.objects.get(pk=id)
+             form = sellerinfoform(instance=ident)
+            return render(request, "sellerinfoform.html", {'form': form})
+      else:
+           
+           if id == 0:
+                form = sellerinfoform(request.POST,request.FILES)
+           else:
+              sneighbor = Sellerinfo.objects.get(pk=id)
+              form = sellerinfoform(request.POST,request.FILES,instance= sneighbor,)
+           if form.is_valid():
+              form.save()
+           return redirect('/slhome')
+def Login(request):
+     if request.method == "POST":
+            # Get the post parameters
+      
+        username = request.POST['uname']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)  
+        if user is not None:
+            login(request, user)
+            return redirect('/home')
+
+        else:
+            messages.error(request, "Invalid credentials! Please try again")
+            return render(request, "login.html")
+     return render(request, 'login.html' )
+  
+def signup(request):
+     if request.method == "POST":
+            # Get the post parameters
+        username = request.POST['name']
+        email = request.POST['email']
+        password = request.POST['password']
+        cpassword = request.POST['cpassword']
+
+        checkemail = User.objects.filter(email=email)
+        checkuser = User.objects.filter(username=username)
+        regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        if len(checkemail)>0:
+            messages.error(request, "Email is already exits.")
+            return render(request, 'signup.html')
+        if len(checkuser)>0:
+            messages.error(request, "User Name is already exits.")
+            return render(request, 'signup.html')
+
+        if len(username) > 10:
+            messages.error(request, " Your user name must be under 10 characters")
+            return render(request, 'signup.html')
+
+        if not username.isalnum():
+            messages.error(request, " User name should only contain letters and numbers")
+            return render(request, 'signup.html')
+        if password != cpassword:
+            messages.error(request, " Passwords do not match")
+            return render(request, 'signup.html')
+        
+        if(re.search(regex,email)):   
+           print("Valid Email")   
+        else:   
+           messages.error(request, " invalid email")
+           return render(request, 'signup.html') 
+         
+        # Create the user
+        user = User.objects.create_user(username, email, password)
+        user.save()
+        
+        messages.success(request, "You have succesfully Registerd.")
+        return redirect('/')
+     return render(request, 'signup.html')
+def ulogout(request):
+    logout(request)
+    return redirect('/')
