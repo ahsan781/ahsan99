@@ -496,7 +496,7 @@ def ddelete(request,id):
     return redirect('/dhome')
 def dshome(request):
      user1 = User.objects.get(username=request.user.username)
-     Da = DhaxalSubDoc.objects.all(user = user1)
+     Da = DhaxalSubDoc.objects.filter(user = user1)
      context = {'Da':Da}
      return render(request, "Dhaxalsubhome.html" , context)
 def dsForm(request, id=0):
@@ -951,7 +951,7 @@ def Login(request):
         user = authenticate(request, username=username, password=password)  
         if user is not None:
             login(request, user)
-            return redirect('/home')
+            return redirect('/dashboard')
 
         else:
             messages.error(request, "Invalid credentials! Please try again")
@@ -1003,3 +1003,5 @@ def signup(request):
 def ulogout(request):
     logout(request)
     return redirect('/')
+def dashboard(request):
+    return render(request,'dashboard.html')

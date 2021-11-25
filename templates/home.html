@@ -3,17 +3,48 @@
 {% block body %}
 {% load static %}
 
-<div class=" bg-blue p-t-100 p-b-100 font-robo">
-        <div class="wrapper wrapper--w680">
-            <div class="card card-1 ">
+<section id="main-content">
+
+  <section class="wrapper">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+
+      {% if message.tags == "success" %}
+      <strong>Well done!</strong> {{ message}}
+      {% else %}
+      <strong>Error!</strong> {{ message}}
+      {% endif %}
+
+    </div>
+    {% endfor %}
+    <div class="row">
+      <div class="col-lg-12">
+        <h3 class="page-header"><i class="fa fa-table"></i> District</h3>
+
+        <ol class="breadcrumb">
+          <li><i class="fa fa-home"></i><a href="/company/dashboard/">Dashboard</a></li>
+          <li><i class="fa fa-table"></i>Data</li>
+
+        </ol>
+      </div>
+
+    </div>
+    <!-- page start-->
+
+
+
+    <div class="row">
+      <div class="col-lg-12">
+        <a class="btn btn-primary" href="{% url 'diform'  %}" >Add New District</a><br>
+      </div><br>
+      <div class="col-lg-12">
+        <section class="panel">
+          <header class="panel-heading">
+            District Table
+          </header>
               
-                <div class="card-body">
-                  
-  
- <h2>District<a class="btn btn-warning" href="{% url 'diform'  %}" style='margin-left:130px'>ADD</a></h2>
-  </br>               
- <table class="table">
-  <thead>
+  <table class="table table-striped table-advance table-hover">
+   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">District Name</th>
@@ -44,10 +75,15 @@
   </tbody>
   {% endfor %}
 </table>
+  
+        </section>
+      </div>
+    </div>
+    <!-- page end-->
+  </section>
+</section>
+<!--main content end-->
 
-</div>
-</div>
-</div>
-</div>
+
 
 {% endblock body %}

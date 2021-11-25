@@ -1,203 +1,257 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="shortcut icon" href="{% static 'cassets/img/favicon.png' %}">
 
-<!-- Required meta tags -->
-   {% load static %}
-<meta charset="utf-8">
+  <title>{% block title %} {% endblock title %}</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-
-
-
-<!-- Bootstrap CSS -->
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-
+  
+  <link href="{% static 'cassets/css/bootstrap-theme.css' %}" rel="stylesheet">
+  
+  <link href="{% static 'cassets/css/elegant-icons-style.css' %}" rel="stylesheet" />
+ 
+  <link href="{% static 'cassets/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'cassets/css/style-responsive.css' %}" rel="stylesheet" />
+ 
 
 
-<!--fontawesome-->
-
-<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
-
-<!--This is used for search icon. Instead putting icon manually it is loaded from fontawesome-->
 
 
-   <link href="{% static 'css/main.css' %}" rel="stylesheet" media="all">
 
-<title>Home</title>
+
+
 
 </head>
-<style>
-.card{
-
-  border-color:gray;
- border-style:solid;
-    border-width:thick;
-}
-.bg-blue{
-  background-image: url('{% static "images/bg.png"%}');
-       background-size: 1800px 1800px;
-       lenght:100%
-    background-repeat: no-repeat;
-    background-position: top;
-    background-attachment: fixed;
-}
-#navbarDropdownMenuLink {
-  color:white;
-  font-weight:bold;
-  
-}
-</style>
 
 <body>
+  <!-- container section start -->
+{% if user.is_authenticated %}
+  
+  {% else %}
+  <script>location.replace("/")</script>
+  {% endif %}
+  <section id="container" class="">
 
-<!-- navbar -->
 
+    <header class="header dark-bg">
+      <div class="toggle-nav">
+        <div class="icon-reorder tooltips" data-original-title="" data-placement="bottom"><i class="icon_menu"></i>
+        </div>
+      </div>
 
-     {% if user.is_authenticated %}
+      <!--logo start-->
+      <a href="/dashboard" class="logo">VIB <span class="lite"></span></a>
+      <!--logo end-->
 
-<nav class=" navbar-expand-lg navbar navbar-dark bg-dark" >
+      {% comment %} <div class="nav search-row" id="top_menu">
+        <!--  search form start -->
+        <ul class="nav top-menu">
+          <li>
+            <form class="navbar-form">
+              <input class="form-control" placeholder="Search" type="text">
+            </form>
+          </li>
+        </ul>
+        <!--  search form end -->
+      </div> {% endcomment %}
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown" style='color:white;'>
-    <ul class="navbar-nav">
-     
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="top-nav notification-row">
+        <!-- notificatoin dropdown start-->
+        <ul class="nav pull-right top-menu">
+
+          <!-- user login dropdown start-->
+          <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+              {% comment %} <span class="profile-ava">
+                <img alt="" src="{% static 'assets/img/team/salehjpg.jpg' %}" width="30px" hight="30px">
+              </span> {% endcomment %}
+              <span class="username">{{request.user}}</span>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu extended logout">
+              <div class="log-arrow-up"></div>
+              {% comment %} <li class="eborder-top">
+                <a href="/company/profile"><i class="icon_profile"></i> My Profile</a>
+              </li> {% endcomment %}
+              <li>
+                <a href="/logout"><i class="icon_key_alt"></i> Log Out </a>
+              </li>
+            </ul>
+          </li>
+          <!-- user login dropdown end -->
+        </ul>
+        <!-- notificatoin dropdown end-->
+      </div>
+    </header>
+    <!--header end-->
+
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu">
+          <li class="active">
+            <a class="" href="/dashboard">
+              <i class="icon_house_alt"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          
+           <li class="nav-item dropdown">
+         
+        <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="icon_piechart"></i>
           Address
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="/home">District</a>
-          <a class="dropdown-item" href="/subdistricthome">Sub District</a>
-            <a  class="dropdown-item" href="/neighborhome">Neighbor</a>
-          <a  class="dropdown-item" href="/subneighborhome">SubNeighbor</a>
-          <a  class="dropdown-item" href="/Nohome">Notary</a>
-          <a class="dropdown-item"  href="/Lanhome">LanType</a>
+          <a style='font-weight:bold;' class="dropdown-item" href="/home">District</a>
+          <a style='font-weight:bold;' class="dropdown-item" href="/subdistricthome">Sub District</a>
+            <a style='font-weight:bold;' class="dropdown-item" href="/neighborhome">Neighbor</a>
+          <a style='font-weight:bold;' class="dropdown-item" href="/subneighborhome">SubNeighbor</a>
+          <a style='font-weight:bold;' class="dropdown-item" href="/Nohome">Notary</a>
+          <a style='font-weight:bold;' class="dropdown-item"  href="/Lanhome">LanType</a>
         </div>
       </li>
+     
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          GIS
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a  class="dropdown-item" href="/PNhome">PLot No</a>
-            <a   class="dropdown-item" href="/PLMhome">Plot Map</a>
-                  <a   class="dropdown-item" href="/PMhome">Property Map</a>
-        </div>
-      </li>
-       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <i class="icon_piechart"></i>
           Land Registration
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item"href="/identificationhome">Identification</a>
-              <a class="dropdown-item" href="/PIhome">Purchase Info</a>
-         <a class="dropdown-item" href="/phome">Parcel</a>
-            <a class="dropdown-item" href="/slhome">Sellerinfo</a>
-              <a class="dropdown-item" href="/dhome">Dhaxalayaal</a>
-               <a class="dropdown-item" href="/dshome">Dhaxalayaal SUB DOC</a>
-                     <a class="dropdown-item" href="/sphome">Supporting DOC</a>
+          <a style='font-weight:bold;' class="dropdown-item"href="/identificationhome">Identification</a>
+              <a style='font-weight:bold;' class="dropdown-item" href="/PIhome">Purchase Info</a>
+         <a style='font-weight:bold;' class="dropdown-item" href="/phome">Parcel</a>
+            <a style='font-weight:bold;' class="dropdown-item" href="/slhome">Sellerinfo</a>
+              <a style='font-weight:bold;' class="dropdown-item" href="/dhome">Dhaxalayaal</a>
+               <a style='font-weight:bold;' class="dropdown-item" href="/dshome">Dhaxalayaal SUB DOC</a>
+                     <a style='font-weight:bold;'  class="dropdown-item" href="/sphome">Supporting DOC</a>
         </div>
       </li>
-
-       <li class="nav-item dropdown">
+               <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Bussiness Registration
+         <i class="icon_piechart"></i>
+          GIS
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item"  href="/bhome">Bussiness REG</a>
-          <a class="dropdown-item"  href="/brhome">Bussiness Registrater</a>
-             <a class="dropdown-item"  href="/bshome">Bussiness Status</a>
+            <a style='font-weight:bold;' class="dropdown-item" href="/PNhome">PLot No</a>
+            <a style='font-weight:bold;'  class="dropdown-item" href="/PLMhome">Plot Map</a>
+                  <a  style='font-weight:bold;'  class="dropdown-item" href="/PMhome">Property Map</a>
+        </div>
+      </li>
+    
+       {% comment %} <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <i class="icon_piechart"></i>
+          Bussiness Reg
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a style='font-weight:bold;' class="dropdown-item"  href="/bhome">Bussiness REG</a>
+          <a style='font-weight:bold;' class="dropdown-item"  href="/brhome">Bussiness Registrater</a>
+             <a style='font-weight:bold;' class="dropdown-item"  href="/bshome">Bussiness Status</a>
         </div>
       </li>
 
 
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <i class="icon_piechart"></i>
           Surveyor
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-           <a  class="dropdown-item" href="/chome">Coordinate</a>
+           <a style='font-weight:bold;'  class="dropdown-item" href="/chome">Coordinate</a>
         </div>
       </li>
-
-
-       <li class="nav-item dropdown">
+          <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Kalawarejin
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-             <a class="dropdown-item" href="/khome">kalawarejin SubDOC</a>
-        </div>
-      </li>
-
-
-       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Property Payment
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-           <a  class="dropdown-item" href="/prhome">Property Revenue</a>
-        </div>
-      </li>
-
-
-
-       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Business Payment 
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="/brehome">Bussiness Revenue</a>
-        </div>
-      </li>
-
-
-       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <i class="icon_piechart"></i>
           Planing 
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-           <a class="dropdown-item" href="/chhome">Charge</a>
-           <a  class="dropdown-item" href="/cuhome">Currencies</a>
-            <a class="dropdown-item" href="/cthome">Charge Type</a>
+           <a style='font-weight:bold;' class="dropdown-item" href="/chhome">Charge</a>
+           <a style='font-weight:bold;' class="dropdown-item" href="/cuhome">Currencies</a>
+            <a style='font-weight:bold;' class="dropdown-item" href="/cthome">Charge Type</a>
         </div>
       </li>
-      <li>
-      </li>
-      <li>
 
-      </li>
-      
-       <li class="nav-item dropdown" style='margin-left:150px;'>
+       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <img src="{% static "images/icon.png"%}" alt="Girl in a jacket" style='border-radius:100%;' width="30" height="30">
-         {{request.user}}
+         <i class="icon_piechart"></i>
+        Kalawarejin
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-           <a class="dropdown-item" href="/logout">logout</a>
-         
+             <a style='font-weight:bold;' class="dropdown-item" href="/khome">kalawarejin SubDOC</a>
         </div>
       </li>
-    </ul>
-  </div>
-</nav>
 
-  {% block body %}
-    
-  {% endblock body %}
-  {% endif %}
+
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <i class="icon_piechart"></i>
+          Property Payment
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+           <a  style='font-weight:bold;' class="dropdown-item" href="/prhome">Property Revenue</a>
+        </div>
+      </li>
+
+
+
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <i class="icon_piechart"></i>
+         Business Payment 
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a style='font-weight:bold;' class="dropdown-item" href="/brehome">Bussiness Revenue</a>
+        </div>
+      </li> {% endcomment %}
+
+
+      
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+
+
+    <!--main content start-->
+
+    {% block body %}
+
+
+    {% endblock body %}
+
+    <!--main content end-->
+
+
+
+
+  </section>
+  <!-- container section start -->
+
+
+
+
+
+  <script src="{% static 'cassets/js/jquery-1.8.3.min.js' %}"></script>
+
+  <script src="{% static 'cassets/js/bootstrap.min.js' %}"></script>
+
+
+
+  <script src="{% static 'cassets/js/scripts.js' %}"></script>
+
+  <script src="{% static 'cassets/js/jquery-jvectormap-1.2.2.min.js' %}"></script>
+
+
+
 </body>
 
 </html>
-

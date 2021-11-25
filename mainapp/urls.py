@@ -110,6 +110,7 @@ urlpatterns = [
     path('spForm1/<int:id>/',views.spForm1, name='spForm1'),
     path('signup/',views.signup, name='signup'),
     path('logout/', views.ulogout, name='logout'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     # path('dedit/<int:id>', views.dedit, name='dedit'),
     # path('subdistrict', views.subdistrcit, name='subdistrcit')
 
