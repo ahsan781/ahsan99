@@ -3,39 +3,33 @@
 {% block body %}
 {% load static %}
 {% load crispy_forms_tags %}
-<section id="main-content">
-  <section class="wrapper">
-     {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+<div class="wrapper">
+       
 
-      {% if message.tags == "success" %}
-      <strong>Well done!</strong> {{ message}}
-      {% else %}
-      <strong>Error!</strong> {{ message}}
-      {% endif %}
-
-    </div>
-    {% endfor %}
-    <div class="row">
-      <div class="col-lg-12">
-        <h3 class="page-header" Style='color:black; '><i class="fa fa-table"></i>Add New DhaxalSubDOC</h3>
- 
-        <ol class="breadcrumb">
-          <li><i class="fa fa-home"></i><a href="#">Dashboard</a></li>
-          <li><i class="fa fa-table"></i>Data</li>
-          <li><i class="fa fa-table"></i>Add New DhaxalSubDOC</li>
-
-        </ol>
-      </div>
-
-    </div>
-    
-
-    <section class="panel">
-      <header class="panel-heading">
-         Form
-      </header>
-      <div class="panel-body">
+ <div class="content-page">
+   <div class="content">
+     <div class="container-fluid">
+                        
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Land Registration</a></li>
+                                            <li class="breadcrumb-item active">DhaxayaalsubForm</li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">DhaxayaalsubForm </h4>
+                                </div>
+                            </div>
+                        </div> 
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
                 <form action="" method="post" autocomplete="off"  enctype="multipart/form-data">
 
                     {% csrf_token %}
@@ -46,7 +40,10 @@
         <button class="btn btn-danger" type="submit">Submit</button>
             </div>
     </form>
-                
+              </div>
+            </div>
+        </div>
+    </div>  
                 </div>
             </div>
         </div>

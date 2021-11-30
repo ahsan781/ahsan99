@@ -7,12 +7,18 @@ class DistrictForm(forms.ModelForm):
     class Meta:
         model = District
         fields = ('user','name')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
 
 class SubDistrictForm(forms.ModelForm):
     
     class Meta:
         model = SubDistrict
         fields = ('user','district','SubDistrictname')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     
     def __init__(self, *args, **kwargs):
         super(SubDistrictForm,self).__init__(*args, **kwargs)
@@ -22,6 +28,9 @@ class NeighborForm(forms.ModelForm):
     class Meta:
         model = Neighbor
         fields = ('user','subDistrict','Neighborname',)
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super(NeighborForm,self).__init__(*args, **kwargs)
@@ -31,7 +40,9 @@ class SubNeigborForm(forms.ModelForm):
     class Meta:
         model = SubNeighbor
         fields = ('user','neigbour','SubNeighborname',)
-
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(SubNeigborForm,self).__init__(*args, **kwargs)
         self.fields['neigbour'].empty_label = "Select"
@@ -40,10 +51,13 @@ class identificationForm(forms.ModelForm):
     IDdate= forms.DateField(
     localize=True,
     widget=forms.DateInput(format = '%Y-%m-%d',attrs={'type': 'IDdate'}),)
-  
+
     class Meta:
         model = identification
         fields = ( 'user','RegistrationNO','IDType' ,'OtherID','IDNumber','IDissueBy','IDdate','ScanedID')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(identificationForm,self).__init__(*args, **kwargs)
         self.fields['RegistrationNO'].empty_label = "Select"
@@ -53,6 +67,9 @@ class PropertyMapForm(forms.ModelForm):
     class Meta:
         model = PropertyMap
         fields = ('Purchaseinfo','PropertyNumber','Parcelmap','MasterplanMap')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(PropertyMapForm,self).__init__(*args, **kwargs)
         self.fields['Purchaseinfo'].empty_label = "Select"
@@ -61,6 +78,9 @@ class Plotmapform(forms.ModelForm):
     class Meta:
         model = Plotmap
         fields = ('purchaseinfo', 'Lenght', 'Width')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(Plotmapform,self).__init__(*args, **kwargs)
         self.fields['purchaseinfo'].empty_label = "Select"
@@ -69,6 +89,9 @@ class Plotnoform(forms.ModelForm):
     class Meta:
         model = PlotNo
         fields = ('District', 'SubDistrict', 'Neighbor', 'SubNeighbor','PlotNo')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(Plotnoform,self).__init__(*args, **kwargs)
         self.fields['District'].empty_label = "Select"
@@ -80,6 +103,9 @@ class Purchaseinfoform(forms.ModelForm):
     class Meta:
         model = Purchaseinfo
         fields = ('user', 'RegistrationID','District','SubDistrict', 'Neighbor' , 'PlotNo',  'OwnerFirstName' , 'OwnerSecondName', 'OwnerLastName', 'OwnerSurName', 'Mobile', 'Email', 'OtherProperty')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(Purchaseinfoform,self).__init__(*args, **kwargs)
         self.fields['RegistrationID'].empty_label = "Select"
@@ -104,10 +130,14 @@ class Parcelform(forms.ModelForm):
     PurchaseDate = forms.DateField(
     localize=True,
     widget=forms.DateInput(format = '%Y-%m-%d',attrs={'type': 'PurchaseDate'}),)
+   
 
     class Meta:
         model = Parcel
         fields = ('user','Landtype', 'Notary' , 'Existingbuilding','Landpurchaseamount',  'PurchaseDate' , 'FileNO', 'LandUsetype', 'Landwidth', 'landlenght')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(Parcelform,self).__init__(*args, **kwargs)
         self.fields['Landtype'].empty_label = "Select"
@@ -118,11 +148,17 @@ class Notaryform(forms.ModelForm):
     class Meta:
         model = Notary
         fields = ('Notrayname','YearEstablished','Ownername','Address')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
 class Landtypeform(forms.ModelForm):
     
     class Meta:
         model = Landtype
         fields = ('Landtype',)
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
 class sellerinfoform(forms.ModelForm):
     DOB = forms.DateField(
     localize=True,
@@ -130,6 +166,9 @@ class sellerinfoform(forms.ModelForm):
     class Meta:
         model = Sellerinfo
         fields = ('user','RegistrationNO', 'FirstName','SecondName','LastName','SurName','Gender','DOB','MobileNO1','MobileNo2','Email')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(sellerinfoform,self).__init__(*args, **kwargs)
         self.fields['RegistrationNO'].empty_label = "Select"
@@ -153,6 +192,9 @@ class Dhaxalform(forms.ModelForm):
     class Meta:
         model = Dhaxalayaal
         fields = ( 'user','RegistrationNO', 'FirstName','SecondName','LastName','Gender','DOB','Telephone')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(Dhaxalform,self).__init__(*args, **kwargs)
         self.fields['RegistrationNO'].empty_label = "Select"
@@ -166,6 +208,9 @@ class DhaxalSubForm(forms.ModelForm):
     class Meta:
         model = DhaxalSubDoc
         fields = ('user','RegistrationNO','KalawarejinDOC1','KalawarejinDOC2','KalawarejinDOC3','KalawarejinDOC4')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(DhaxalSubForm,self).__init__(*args, **kwargs)
         self.fields['RegistrationNO'].empty_label = "Select"
@@ -182,6 +227,9 @@ class SupportingDocForm(forms.ModelForm):
     class Meta:
         model = SupportingDOC
         fields = ('user','RegistrationNO','IDcard','GentalReciptVoucher','MasterPlan','NotaryAuthorization','UploadCustomRegisForm','Hibyan','Dhaxal','FileScan')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(SupportingDocForm,self).__init__(*args, **kwargs)
         self.fields['RegistrationNO'].empty_label = "Select"
@@ -190,6 +238,9 @@ class BussinessRegform(forms.ModelForm):
     class Meta:
         model = BussinessRegistration
         fields = ('PropertyID','District', 'SubDistrict', 'Neighbor', 'PlotNo','licenseNO','BussinessName','BussinessType','BussinessGrade','Type','BillingType')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(BussinessRegform,self).__init__(*args, **kwargs)
         self.fields['District'].empty_label = "Select"
@@ -202,6 +253,9 @@ class BussinessRegistratorform(forms.ModelForm):
     class Meta:
         model = BussinessRegistrator
         fields = ( 'BussinessReg', 'RegFirstName','BussinessSecondName','BussinessLastName','DOB','Gender','Telephone')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(BussinessRegistratorform,self).__init__(*args, **kwargs)
         self.fields['BussinessReg'].empty_label = "Select"
@@ -213,6 +267,9 @@ class Bussinessstatusform(forms.ModelForm):
     class Meta:
         model = BussinessStatus
         fields = ( 'BussinessReg', 'StatusType','StatusDate')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(Bussinessstatusform,self).__init__(*args, **kwargs)
         self.fields['BussinessReg'].empty_label = "Select"
@@ -222,6 +279,9 @@ class Coordinateform(forms.ModelForm):
     class Meta:
         model = Coordinates
         fields = ( 'SequesnceNo', 'Parcel','Longitude','Latitude','Attribute')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(Coordinateform,self).__init__(*args, **kwargs)
         self.fields['Parcel'].empty_label = "Select"
@@ -233,6 +293,9 @@ class kalawarejinform(forms.ModelForm):
     class Meta:
         model = KalawarejinSubDoc
         fields = ('Parcel','DhaxalDOC1','DhaxalDOC2','DhaxalDOC3','DhaxalDOC4')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(kalawarejinform,self).__init__(*args, **kwargs)
         self.fields['Parcel'].empty_label = "Select"
@@ -243,6 +306,9 @@ class PRform(forms.ModelForm):
     class Meta:
         model = PropertyRevenu
         fields = ('Parcel','TransNo','TaransDate','Chargecode','Transcurr','GrNo','Revenuetype')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(PRform,self).__init__(*args, **kwargs)
         self.fields['Parcel'].empty_label = "Select"
@@ -253,6 +319,9 @@ class BReform(forms.ModelForm):
     class Meta:
         model = BussinessRevenu
         fields = ('BussinessReg','TransNo','TaransDate','Chargecode','Transcurr','GrNo','Revenuetype')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(BReform,self).__init__(*args, **kwargs)
         self.fields['BussinessReg'].empty_label = "Select"
@@ -261,6 +330,9 @@ class Chargeform(forms.ModelForm):
     class Meta:
         model = Charges
         fields = ('BussinessRevenu','ChargeName','Glnaccount','Chargestatus')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(Chargeform,self).__init__(*args, **kwargs)
         self.fields['BussinessRevenu'].empty_label = "Select"
@@ -269,6 +341,9 @@ class Currenciesform(forms.ModelForm):
     class Meta:
         model = Currencies
         fields = ('BussinessRevenu','CurrName','ExcRate')
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(Currenciesform,self).__init__(*args, **kwargs)
         self.fields['BussinessRevenu'].empty_label = "Select"
@@ -277,6 +352,9 @@ class ChagreTypeform(forms.ModelForm):
     class Meta:
         model =   ChagreType
         fields = ('BussinessReg',)
+        widgets = {
+            'user': forms.TextInput(attrs={'type': 'hidden'}),
+        }
     def __init__(self, *args, **kwargs):
         super(ChagreTypeform,self).__init__(*args, **kwargs)
         self.fields['BussinessReg'].empty_label = "Select"

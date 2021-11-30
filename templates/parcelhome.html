@@ -7,9 +7,15 @@
                   
   
 
-<section id="main-content">
+<div class="wrapper">
+       
 
-  <section class="wrapper">
+ <div class="content-page">
+   <div class="content">
+
+   
+ <div class="container-fluid">
+                        
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
 
@@ -21,88 +27,119 @@
 
     </div>
     {% endfor %}
-    <div class="row">
-      <div class="col-lg-12">
-        <h3 class="page-header"><i class="fa fa-table"></i> Parcel</h3>
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Land Registration</a></li>
+                                            <li class="breadcrumb-item active">Parcel</li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">Parcel</h4>
+                                </div>
+                            </div>
+                        </div>     
+                        <!-- end page title --> 
 
-        <ol class="breadcrumb">
-          <li><i class="fa fa-home"></i><a href="/company/dashboard/">Dashboard</a></li>
-          <li><i class="fa fa-table"></i>Data</li>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row mb-2">
+                                            <div class="col-sm-4">
+                                                <a class="btn btn-danger mb-2" href="{% url 'pform'  %}"  ><i class="mdi mdi-plus-circle me-2"></i> Add Parcel</a>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="text-sm-end">
+                                                    <button type="button" class="btn btn-success mb-2 me-1"><i class="mdi mdi-cog-outline"></i></button>
+                                                    <button type="button" class="btn btn-light mb-2 me-1">Import</button>
+                                                    <button type="button" class="btn btn-light mb-2">Export</button>
+                                                </div>
+                                            </div><!-- end col-->
+                                        </div>
+                
+                                        <div class="table-responsive">
+                                            <table class="table table-centered w-100 dt-responsive nowrap" id="products-datatable">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th class="all" style="width: 20px;">
+                                                            <div class="form-check">
+                                                                <input type="checkbox" class="form-check-input" id="customCheck1">
+                                                                <label class="form-check-label" for="customCheck1">&nbsp;</label>
+                                                            </div>
+                                                        </th>
+                                                
+                                                           <th scope="col">#</th>
+                                                    <th scope="col"> Landtype</th>
+                                                           <th scope="col">Notary</th>
+                                                         <th scope="col">Existingbuilding</th>
+                                                        <th scope="col">Landamount</th>
+                                                    <th scope="col"> PurchaseDate</th>
+                                                      <th scope="col"> FileNO </th>
+                                                          <th scope="col">  Landwidth</th>
+                                                             <th scope="col">  landlenght</th>
+                                                                 <th scope="col">  Action</th>
+                                                              <th scope="col">  Tables1</th>
+                                                               <th scope="col">  Tables2</th>>
+                                                     
+                                                    </tr>
+                                                </thead>
+                                                    {% for  p in P  %}
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <input type="checkbox" class="form-check-input" id="customCheck2">
+                                                                <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                                            </div>
+                                                       
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td>   {{ p.Landtype}}</td>
+                                                         <td>   {{ p.Notary}}</td>
+                                                                 <td>   {{ p.Existingbuilding}}</td>
+                                                             <td>   {{ p.Landpurchaseamount}}</td>
+                                                              <td>   {{ p.PurchaseDate}}</td>
+                                                                       <td>   {{ p.FileNO}}</td>
+                                                                           <td>   {{ p.Landwidth}}</td>
+                                                                         <td>   {{ p.landlenght}}</td>
 
-        </ol>
-      </div>
+                    
+                                                        <td class="table-action">
+                                                              <a href="{% url 'puform' p.Registrationid%}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                            <a href="{% url 'pdelete' p.Registrationid%}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                        </td>
+                                                        <td>
+                                                          <a class="btn btn-info mb-2" href="{% url 'slForm1' p.Registrationid%}"><i class="mdi mdi-plus-circle me-2"></i> Sellerinfo</a>
+                                                          <a class="btn btn-primary mb-2" href="{% url 'PIform' p.Registrationid%}"><i class="mdi mdi-plus-circle me-2"></i> Purchaseinfo</a>
+                                                            <a class="btn btn-info mb-2" href="{% url 'dform' p.Registrationid%}"><i class="mdi mdi-plus-circle me-2"></i> Dhaxal</a>
+                                                    
+                                                        </td>
+                                                        <td>
+                                                          <a class="btn btn-info mb-2" href="{% url 'idform' p.Registrationid%}"><i class="mdi mdi-plus-circle me-2"></i> Identification</a>
+                                                          <a class="btn btn-primary mb-2" href="{% url 'spForm' p.Registrationid%}"><i class="mdi mdi-plus-circle me-2"></i> SubDOC</a>
+                                                            <a class="btn btn-info mb-2" href="{% url 'dsForm' p.Registrationid%}"><i class="mdi mdi-plus-circle me-2"></i> DhaxalSubDOC</a>
+                                                    
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    
+                                                </tbody>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    </div> <!-- end card-body-->
+                                </div> <!-- end card-->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->        
+                        
+                    </div> <!-- container -->
 
-    </div>
-    <!-- page start-->
+                </div> <!-- content -->
 
-
-
-    <div class="row">
-      <div class="col-lg-12">
-        <a class="btn btn-primary" href="{% url 'pform'  %}" >Add New Parcel</a><br>
-      </div><br>
-      <div class="col-lg-12">
-        <section class="panel">
-          <header class="panel-heading">
-            Parcel Table
-          </header>
-              
-  <table class="table table-striped table-advance table-hover">
-  <thead>
-    <tr >
-      <th scope="col">#</th>
-      <th scope="col"> Landtype</th>
-      <th scope="col">Notary</th>
-      <th scope="col">Existingbuilding</th>
-      <th scope="col">Landamount</th>
-      <th scope="col"> PurchaseDate</th>
-      <th scope="col"> FileNO </th>
-       <th scope="col">  Landwidth</th>
-        <th scope="col">  landlenght</th>
-         <th scope="col">  Action</th>
-           <th scope="col">  Tables1</th>
-             <th scope="col">  Tables2</th>
-       
-        
-    </tr>
-  </thead>
-   {% for  p in P  %}
-  <tbody>
-    <tr>
-      <td>{{ forloop.counter }}</td>
-      <td>   {{ p.Landtype}}</td>
-      <td>   {{ p.Notary}}</td>
-      <td>   {{ p.Existingbuilding}}</td>
-      <td>   {{ p.Landpurchaseamount}}</td>
-      <td>   {{ p.PurchaseDate}}</td>
-      <td>   {{ p.FileNO}}</td>
-      <td>   {{ p.Landwidth}}</td>
-      <td>   {{ p.landlenght}}</td>
-          
-      <td>
-    
-        <a class="btn btn-success" href="{% url 'puform' p.Registrationid%}">Edit</a>
-        <a class="btn btn-danger" href="{% url 'pdelete' p.Registrationid%}">Delete</a>
-       
-                                  
-      </td>
-      <td>
-       <a class="btn btn-info" href="{% url 'slForm1' p.Registrationid%}">Sellerinfo</a><br>
-        <a class="btn btn-primary" href="{% url 'PIform' p.Registrationid%}">Purchaseinfo</a>
-         <a class="btn btn-info" href="{% url 'dform' p.Registrationid%}">Dhaxal</a>
-         </td>
-         <td>
-          <a class="btn btn-info" href="{% url 'idform' p.Registrationid%}">Identification</a>
-               <a class="btn btn-primary" href="{% url 'dsForm' p.Registrationid%}">DhaxalSubDOC</a>
-                <a class="btn btn-info" href="{% url 'spForm' p.Registrationid%}">SubDOC</a>
-      </td>
-    </tr>
-   
-  </tbody>
-  {% endfor %}
-</table>
-
-</div>
 </div>
 </div>
 </div>
